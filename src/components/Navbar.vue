@@ -1,4 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { inject, type Ref } from "vue";
+import type { User } from "../types/User";
+
+const user = inject<Ref<User | null>>("user");
+</script>
 
 <template>
   <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -8,8 +13,8 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <div class="mr-5 mb-2">
-            <p>User: Dima</p>
+          <div class="mr-5">
+            <p>User: {{ user ? user.name : "" }}</p>
           </div>
 
           <a class="button is-light"> Logout </a>

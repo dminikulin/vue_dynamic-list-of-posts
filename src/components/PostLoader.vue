@@ -2,6 +2,8 @@
 import Loader from "./loader/Loader.vue";
 </script>
 
-<div className="is-flex is-justify-content-center is-align-items-center mt-2">
-  
-</div>
+<template>
+  <div class="is-flex is-justify-content-center is-align-items-center mt-2">
+    <Loader></Loader>
+  </div>
+</template>
