@@ -31,7 +31,7 @@ onMounted(async () => {
 });
 
 const handlePostAdded = (newPost: Post) => {
-  posts.value.unshift(newPost);
+  posts.value.push(newPost);
   addPostOpen.value = false;
   editingPost.value = null;
   selectedPost.value = newPost;

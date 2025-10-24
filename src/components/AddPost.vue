@@ -77,8 +77,10 @@ const handleSubmit = (e: Event) => {
   <div class="content">
     <h2>{{ props.post ? "Edit Post" : "Create New Post" }}</h2>
 
-    <form @submit="handleSubmit">
-      <div class="field" data-cy="NameField">
+    <PostLoader v-if="isSubmitting"></PostLoader>
+
+    <form v-else @submit="handleSubmit">
+      <div class="field">
         <label class="label" htmlFor="postTitle"> Title </label>
         <div class="control has-icons-left has-icons-right">
           <input
@@ -94,18 +96,17 @@ const handleSubmit = (e: Event) => {
             <i class="fas fa-user"></i>
           </span>
 
-          <span v-if="error"
+          <span v-if="error==='Title is required'"
             class="icon is-small is-right has-text-danger"
-            data-cy="ErrorIcon"
           >
             <i class="fas fa-exclamation-triangle"></i>
           </span>
         </div>
 
-        <p v-if="error==='Title is required'" class="help is-danger" data-cy="ErrorMessage">Title is required</p>
+        <p v-if="error==='Title is required'" class="help is-danger">Title is required</p>
       </div>
 
-      <div className="field" data-cy="BodyField">
+      <div className="field">
         <label className="label" htmlFor="postBody"> Text </label>
         <div class="control">
           <textarea
@@ -120,7 +121,7 @@ const handleSubmit = (e: Event) => {
           ></textarea>
         </div>
 
-        <p v-if="error==='Body is required'" className="help is-danger" data-cy="ErrorMessage">Body is required</p>
+        <p v-if="error==='Body is required'" className="help is-danger">Body is required</p>
       </div>
 
       <div class="field is-grouped">
@@ -146,7 +147,5 @@ const handleSubmit = (e: Event) => {
         </div>
       </div>
     </form>
-
-    <PostLoader v-if="isSubmitting"></PostLoader>
   </div>
 </template>
