@@ -23,6 +23,13 @@ const handleCancel = () => {
   emit("close");
 };
 
+const handleClear = () => {
+  author.value = "";
+  email.value = "";
+  body.value = "";
+  error.value = null;
+};
+
 watch(author, () => {
   if (error.value === "Author is required") {
     error.value = null;
@@ -184,6 +191,16 @@ const handleSubmit = (e: Event) => {
           :class="{ 'is-loading': isSubmitting }"
         >
           Add comment
+        </button>
+      </div>
+      <div class="control">
+        <button
+          type="button"
+          class="button is-light"
+          @click="handleClear"
+          :disabled="isSubmitting"
+        >
+          Clear
         </button>
       </div>
       <div class="control">

@@ -50,11 +50,18 @@ onMounted(async () => {
 });
 
 const handleDelete = async (comment: Comment) => {
+  const commentIndex = comments.value.findIndex((c) => c.id === comment.id);
+  if (commentIndex === -1) return; // Safety check
+  
+  const removedComment = comments.value[commentIndex]!;
+  comments.value = comments.value.filter((c) => c.id !== comment.id);
+  
   commentDeleting.value = comment.id;
   try {
     await CommentsAPI.deleteComment(comment.id);
-    comments.value = comments.value.filter((c) => c.id !== comment.id);
   } catch {
+    // Restore the comment if deletion failed
+    comments.value.splice(commentIndex, 0, removedComment);
     error.value = "Failed to delete comment";
   } finally {
     commentDeleting.value = null;
