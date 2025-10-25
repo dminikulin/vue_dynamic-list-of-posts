@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, ref, type Ref } from "vue";
+import { inject, ref, watch, type Ref } from "vue";
 import type { Post } from "../types/Post";
 import type { User } from "../types/User";
 import { PostsAPI } from "../api/client";
@@ -17,6 +17,18 @@ const emit = defineEmits<{
   postAdded: [post: Post];
   postUpdated: [post: Post];
 }>();
+
+watch(title, () => {
+  if (error.value === "Title is required") {
+    error.value = null;
+  }
+});
+
+watch(body, () => {
+  if (error.value === "Body is required") {
+    error.value = null;
+  }
+});
 
 const handleCancel = () => {
   emit("close");

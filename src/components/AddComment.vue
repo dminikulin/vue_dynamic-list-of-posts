@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import PostLoader from "./PostLoader.vue";
 import type { Comment, CommentInput } from "../types/Comment";
 import { CommentsAPI } from "../api/client";
@@ -22,6 +22,24 @@ const emit = defineEmits<{
 const handleCancel = () => {
   emit("close");
 };
+
+watch(author, () => {
+  if (error.value === "Author is required") {
+    error.value = null;
+  }
+});
+
+watch(email, () => {
+  if (error.value === "Email is required") {
+    error.value = null;
+  }
+});
+
+watch(body, () => {
+  if (error.value === "Body is required") {
+    error.value = null;
+  }
+});
 
 const addComment = async () => {
   error.value = null;
@@ -54,6 +72,8 @@ const addComment = async () => {
     // Assuming CommentsAPI.addComment returns the created Comment with id
     const createdComment: Comment = await CommentsAPI.addComment(newComment);
     emit("commentAdded", createdComment);
+
+    body.value = ""
   } catch {
     error.value = "Failed to add comment";
   } finally {

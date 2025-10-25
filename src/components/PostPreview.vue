@@ -25,7 +25,6 @@ const emit = defineEmits<{
 
 const handleCommentAdded = (newComment: Comment) => {
   comments.value.push(newComment);
-  addCommentOpen.value = false;
 };
 
 const toggleAddComment = () => {
