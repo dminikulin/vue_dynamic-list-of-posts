@@ -4,7 +4,7 @@ import Loader from "./loader/Loader.vue";
 
 defineProps<{
   comment: Comment;
-  deleting: number | null
+  deleting: number | null;
 }>();
 
 const emit = defineEmits<{
@@ -16,7 +16,7 @@ const emit = defineEmits<{
   <Loader v-if="deleting && deleting === comment.id"></Loader>
   <article v-else class="message is-small">
     <div class="message-header">
-      <a href="{`mailto:${{ comment.email }}`}"> {{ comment.name }} </a>
+      <a :href="`mailto:${comment.email}`"> {{ comment.name }} </a>
       <button
         type="button"
         class="delete is-small"
